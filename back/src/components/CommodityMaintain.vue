@@ -2,7 +2,7 @@
 <template>
   <div class="TestWorld">
     <div>
-      <el-button @click="dialogFormVisible = true">新增</el-button>
+      <el-button @click="dialogFormVisible = true" icon="el-icon-plus">新增</el-button>
 
       <el-dialog title="新增" :visible.sync="dialogFormVisible">
         <el-form :model="newValue">
@@ -53,17 +53,19 @@
             v-model="scope.$index"
             @click="handleEdit(scope.$index, scope.row)">编辑
           </el-button>
-          <el-button
-            v-else
-            type="info"
-            icon="el-icon-close"
-            v-model="scope.$index"
-            @click="handleCancle(scope.$index, scope.row)">取消
-          </el-button>
-          <el-button
-            type="success"
-            icon="el-icon-check"
-            @click="savemodify">保存</el-button>
+          <div v-else>
+            <el-button
+              type="info"
+              icon="el-icon-close"
+              v-model="scope.$index"
+              @click="handleCancle(scope.$index, scope.row)">取消
+            </el-button>
+            <el-button
+              type="success"
+              icon="el-icon-check"
+              @click="savemodify(scope.$index, scope.row)">保存
+            </el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -79,17 +81,20 @@ export default {
         {
           name: 'orange',
           price: 100,
-          editing: false
+          editing: false,
+          saving: false
         },
         {
           name: 'grape',
           price: 100,
-          editing: false
+          editing: false,
+          saving: false
         },
         {
           name: 'banana',
           price: 100,
-          editing: false
+          editing: false,
+          saving: false
         }
       ],
       prevValue:{},
@@ -116,14 +121,19 @@ export default {
       let prevContent = this.prevValue.name;
       this.$set(row,"name",prevContent);
     },
-    savemodify(){               //保存
+    savemodify(index,row){               //保存
+      row.editing = false;
+      row.saving = true;
       console.log(JSON.stringify(this.tableData))
+    },
+    clearInput() {
+      this.newValue.name = ''
+      this.newValue.price = ''
     },
     handleAdd() {
       this.tableData.push({name:this.newValue.name,price:this.newValue.price}) //新增
       this.dialogFormVisible = false
-      this.newValue.name = ''
-      this.newValue.price = ''
+      this.clearInput();
     },
   }
 }

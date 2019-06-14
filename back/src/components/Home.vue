@@ -1,9 +1,8 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="400px">
-        <el-row>
-          <el-col :span="12">
+      <el-aside width="200px">
+          <el-col>
             <el-menu
               background-color="lightgray"
               default-active="2"
@@ -18,11 +17,9 @@
               </el-menu-item>
             </el-menu>
           </el-col>
-        </el-row>
       </el-aside>
       <el-container>
         <el-main><router-view></router-view></el-main>
-        <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
   </div>
