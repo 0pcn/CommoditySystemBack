@@ -5,7 +5,7 @@ import Home from '../components/Home.vue'
 import CommodityMaintain from '../components/CommodityMaintain'
 import Order from '../components/Order'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 export default new VueRouter({
   routes: [
