@@ -16,18 +16,18 @@ export default new VueRouter({
       children:[
       {
         path: '/CommodityMaintain',
-        name: 'CommodityMaintain',
+        name: '商品維護',
         component: CommodityMaintain
       },
       {
         path: '/Order',
-        name: 'Order',
+        name: '訂單維護',
         component: Order
       }],
     },
     {
       path: '/',
-      name: 'Login',
+      name: '登入',
       component: Login
     },
   ]

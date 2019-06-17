@@ -3,19 +3,21 @@
     <el-card class="box-card" shadow="always">
       <h2>Login</h2>
       <el-form label-position="top">
-        <el-form-item label="帳號：">
-          <el-input type="text"
-                    id="account"
-                    placeholder="account"
-                    v-model="user.account"></el-input>
-        </el-form-item>
-        <el-form-item label="密碼：">
-          <el-input type="password"
-                    id="password"
-                    placeholder="password"
-                    v-model="user.password"
-                    show-password></el-input>
-        </el-form-item>
+        <div class="form">
+          <el-form-item label="帳號：" class="formlabel">
+            <el-input type="text"
+                      id="account"
+                      placeholder="account"
+                      v-model="user.account"></el-input>
+          </el-form-item>
+          <el-form-item label="密碼：" class="formlabel">
+            <el-input type="password"
+                      id="password"
+                      placeholder="password"
+                      v-model="user.password"
+                      show-password></el-input>
+          </el-form-item>
+        </div>
       </el-form>
       <div>
         <el-button type="primary"
@@ -49,5 +51,12 @@ export default {
 .box-card {
   width: 480px;
   margin: 0px auto;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.formlabel {
+
 }
 </style>
