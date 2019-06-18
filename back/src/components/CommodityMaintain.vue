@@ -21,60 +21,6 @@
     </div>
     <div class="talbe">
       <el-card>
-<!--        <el-table-->
-<!--          :data="tableData"-->
-<!--          style="width: 100%">-->
-<!--          <el-table-column prop="name" label="商品名稱">-->
-<!--            <template slot-scope="scope">-->
-<!--              <template v-if="scope.row.editing">-->
-<!--                <el-input class="edit-input" v-model="scope.row.name"  placeholder="商品名稱"></el-input>-->
-<!--              </template>-->
-<!--              <span v-else>{{ scope.row.name }}</span>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
-<!--          <el-table-column prop="price" label="價錢">-->
-<!--            <template slot-scope="scope">-->
-<!--              <template v-if="scope.row.editing">-->
-<!--                <el-input class="edit-input" v-model="scope.row.price" placeholder="價錢"></el-input>-->
-<!--              </template>-->
-<!--              <span v-else>{{ scope.row.price}}</span>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
-<!--          <el-table-column prop="editing" label="操作">-->
-<!--            <template slot-scope="scope">-->
-<!--              <el-button-->
-<!--                type="danger"-->
-<!--                size="small"-->
-<!--                v-if="!scope.row.editing"-->
-<!--                icon="el-icon-delete"-->
-<!--                @click="handleDelete(scope.$index)">删除-->
-<!--              </el-button>-->
-<!--              <el-button-->
-<!--                type="primary"-->
-<!--                size="small"-->
-<!--                v-if="!scope.row.editing"-->
-<!--                icon="el-icon-edit"-->
-<!--                v-model="scope.$index"-->
-<!--                @click="handleEdit(scope.row)">编辑-->
-<!--              </el-button>-->
-<!--              <div v-else>-->
-<!--                <el-button-->
-<!--                  type="info"-->
-<!--                  size="small"-->
-<!--                  icon="el-icon-close"-->
-<!--                  v-model="scope.$index"-->
-<!--                  @click="handleCancle(pe.$index, scope.row)">取消-->
-<!--                </el-button>-->
-<!--                <el-button-->
-<!--                  type="success"-->
-<!--                  size="small"-->
-<!--                  icon="el-icon-check"-->
-<!--                  @click="savemodify(scope.row)">保存-->
-<!--                </el-button>-->
-<!--              </div>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
-<!--        </el-table>-->
         <el-table
           :data="tableData"
           style="width: 100%">
