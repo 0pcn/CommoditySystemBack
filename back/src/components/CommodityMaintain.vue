@@ -5,12 +5,12 @@
                   type="primary"
                   @click="dialogFormVisible = true" icon="el-icon-plus">新增</el-button>
       <el-dialog title="新增" :visible.sync="dialogFormVisible">
-        <el-form :model="newValue">
-          <el-form-item label="商品名稱" :label-width="formLabelWidth">
+        <el-form :model="newValue" :rules="rules" ref="tableData">
+          <el-form-item label="商品名稱" prop="name" :label-width="formLabelWidth">
             <el-input v-model="newValue.name" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="價錢" :label-width="formLabelWidth">
-            <el-input v-model="newValue.price" autocomplete="off"></el-input>
+          <el-form-item label="價錢"  prop="price" :label-width="formLabelWidth">
+            <el-input v-model="newValue.price" autocomplete="off" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -23,7 +23,8 @@
       <el-card>
         <el-table
           :data="tableData"
-          style="width: 100%">
+          style="width: 100%"
+          validate-event="true">
           <el-table-column prop="name" label="商品名稱">
             <template slot-scope="scope">
               <template v-if="scope.row.editing">
@@ -35,7 +36,7 @@
           <el-table-column prop="price" label="價錢">
             <template slot-scope="scope">
               <template v-if="scope.row.editing">
-                <el-input class="edit-input" v-model="scope.row.price" placeholder="價錢"></el-input>
+                <el-input class="edit-input" v-model="scope.row.price" placeholder="價錢" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"></el-input>
               </template>
               <span v-else>{{ scope.row.price}}</span>
             </template>
@@ -101,6 +102,14 @@
             saving: false
           }
         ],
+        rules: {
+	        name: [
+		        { required: true, message: '請輸入商品名稱', trigger: 'blur' }
+	        ],
+	        price: [
+		        { required: true, message: '請輸入商品價錢', trigger: 'blur' }
+	        ],
+        },
         prevValue: {},
         dialogFormVisible: false,
         newValue: {
@@ -124,7 +133,14 @@
         this.$set(row, "name", prevContent);
       },
       saveModify(row) {               //保存
-        row.editing = false;
+	      if (this.scope.row.name !== '' || this.scope.row.price !== '') {
+		      alert('保存成功');
+	      } else {
+	        alert('商品名稱或價錢不可空白');
+		      console.log('error submit!!');
+		      return false;
+	      }
+      	row.editing = false;
         row.saving = true;
         console.log(JSON.stringify(this.tableData))
       },
@@ -133,10 +149,20 @@
         this.newValue.price = ''
       },
       handleAdd() {
-        this.tableData.push({name: this.newValue.name, price: this.newValue.price, editing: false, saving: true}); //新增
-        this.dialogFormVisible = false;
+      	if (this.newValue.name !== '' && this.newValue.price !== '') {
+	        alert('新增成功');
+        } else {
+	        console.log('error submit!!');
+	        return false;
+        }
+	      this.tableData.push({name: this.newValue.name, price: this.newValue.price, editing: false, saving: true}); //新增
+	      this.dialogFormVisible = false;
         this.clearInput();
       },
+	    /*handleInput(event) {
+	      return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )
+      }*/
+
     }
   }
 </script>
