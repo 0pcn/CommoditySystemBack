@@ -22,7 +22,7 @@
       <el-header class="header">
         <el-breadcrumb separator-class="el-icon-arrow-right" class="el-breadcrumb">
           <el-breadcrumb-item :to="{ path: '/' }">首頁</el-breadcrumb-item>
-          <el-breadcrumb-item>訂單維護</el-breadcrumb-item>
+          <el-breadcrumb-item >訂單維護</el-breadcrumb-item>
         </el-breadcrumb>
       </el-header>
       <el-main class="el-main">
@@ -40,7 +40,7 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
     }
   }
 </script>

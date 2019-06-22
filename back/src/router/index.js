@@ -8,27 +8,32 @@ import Order from '../components/Order'
 Vue.use(VueRouter);
 
 export default new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/Home',
       name: 'Home',
       component: Home,
+      meta:{title:'Home',requiresAuth: true},
       children:[
       {
         path: '/CommodityMaintain',
         name: '商品維護',
-        component: CommodityMaintain
+        component: CommodityMaintain,
+        meta: {title: '商品維護',requiresAuth: true}
       },
       {
         path: '/Order',
         name: '訂單維護',
-        component: Order
+        component: Order,
+        meta: {title: '訂單維護' ,requiresAuth: true}
       }],
     },
     {
       path: '/',
       name: '登入',
-      component: Login
+      component: Login,
+      meta: { requiresAuth: false }
     },
   ]
 })

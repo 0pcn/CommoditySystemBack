@@ -21,57 +21,65 @@
     </div>
     <div class="talbe">
       <el-card>
-        <el-table
-          :data="tableData"
-          style="width: 100%"
-          validate-event="true">
-          <el-table-column prop="name" label="商品名稱">
-            <template slot-scope="scope">
-              <template v-if="scope.row.editing">
-                <el-input class="edit-input" v-model="scope.row.name" placeholder="商品名稱"></el-input>
+          <el-table
+            :data="tableData"
+            style="width: 100%"
+            validate-event="true">
+            <el-table-column  label="商品名稱">
+              <template slot-scope="scope">
+                <template v-if="scope.row.editing">
+                  <el-form :rules="rules" :model="scope.row">
+                    <el-form-item prop="name">
+                      <el-input class="edit-input" v-model="scope.row.name" placeholder="商品名稱"></el-input>
+                    </el-form-item>
+                  </el-form>
+                </template>
+                <span v-else>{{ scope.row.name }}</span>
               </template>
-              <span v-else>{{ scope.row.name }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="price" label="價錢">
-            <template slot-scope="scope">
-              <template v-if="scope.row.editing">
-                <el-input class="edit-input" v-model="scope.row.price" placeholder="價錢" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"></el-input>
+            </el-table-column>
+            <el-table-column  label="價錢">
+              <template slot-scope="scope">
+                <template v-if="scope.row.editing">
+                  <el-form :rules="rules" :model="scope.row">
+                    <el-form-item prop="price">
+                      <el-input class="edit-input" v-model="scope.row.price" placeholder="價錢" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"></el-input>
+                    </el-form-item>
+                  </el-form>
+                </template>
+                <span v-else>{{ scope.row.price}}</span>
               </template>
-              <span v-else>{{ scope.row.price}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="editing" label="操作">
-            <template slot-scope="scope">
-              <el-button
-                type="danger"
-                v-if="!scope.row.editing"
-                icon="el-icon-delete"
-                @click="handleDelete(scope.$index)">刪除
-              </el-button>
-              <el-button
-                type="primary"
-                v-if="!scope.row.editing"
-                icon="el-icon-edit"
-                v-model="scope.$index"
-                @click="handleEdit(scope.row)">編輯
-              </el-button>
-              <div v-else>
+            </el-table-column>
+            <el-table-column prop="editing" label="操作">
+              <template slot-scope="scope">
                 <el-button
-                  type="info"
-                  icon="el-icon-close"
+                  type="danger"
+                  v-if="!scope.row.editing"
+                  icon="el-icon-delete"
+                  @click="handleDelete(scope.$index)">刪除
+                </el-button>
+                <el-button
+                  type="primary"
+                  v-if="!scope.row.editing"
+                  icon="el-icon-edit"
                   v-model="scope.$index"
-                  @click="handleCancel(scope.row)">取消
+                  @click="handleEdit(scope.row)">編輯
                 </el-button>
-                <el-button
-                  type="success"
-                  icon="el-icon-check"
-                  @click="saveModify(scope.row)">儲存
-                </el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
+                <div v-else>
+                  <el-button
+                    type="info"
+                    icon="el-icon-close"
+                    v-model="scope.$index"
+                    @click="handleCancel(scope.row)">取消
+                  </el-button>
+                  <el-button
+                    type="success"
+                    icon="el-icon-check"
+                    @click="saveModify(scope.row)">儲存
+                  </el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
       </el-card>
     </div>
   </div>
@@ -104,10 +112,10 @@
         ],
         rules: {
 	        name: [
-		        { required: true, message: '請輸入商品名稱', trigger: 'blur' }
+		        { type: "string", required: true, message: '請輸入商品名稱', trigger: 'change' }
 	        ],
 	        price: [
-		        { required: true, message: '請輸入商品價錢', trigger: 'blur' }
+		        { required: true, message: '請輸入商品價錢', trigger: 'change' }
 	        ],
         },
         prevValue: {},
@@ -129,14 +137,15 @@
       },
       handleCancel(row) {  //取消
         row.editing = false;
-        let prevContent = this.prevValue.name;
-        this.$set(row, "name", prevContent);
+        let prevContentName = this.prevValue.name;
+        let prevContentPrice = this.prevValue.price;
+        this.$set(row, "name", prevContentName);
+	      this.$set(row, "price", prevContentPrice);
       },
       saveModify(row) {               //保存
-	      if (this.scope.row.name !== '' || this.scope.row.price !== '') {
-		      alert('保存成功');
+	      if (this.newValue.name !== '' && this.newValue.price !== '') {
+		      alert('儲存成功');
 	      } else {
-	        alert('商品名稱或價錢不可空白');
 		      console.log('error submit!!');
 		      return false;
 	      }
