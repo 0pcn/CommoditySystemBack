@@ -112,10 +112,10 @@
         ],
         rules: {
 	        name: [
-		        { type: "string", required: true, message: '請輸入商品名稱', trigger: 'blur' }
+		        { type: "string", required: true, message: '請輸入商品名稱', trigger: 'change' }
 	        ],
 	        price: [
-		        { required: true, message: '請輸入商品價錢', trigger: 'blur' }
+		        { required: true, message: '請輸入商品價錢', trigger: 'change' }
 	        ],
         },
         prevValue: {},
@@ -143,16 +143,14 @@
 	      this.$set(row, "price", prevContentPrice);
       },
       saveModify(row) {               //保存
-	     /* if (this.row.name !== null && this.row.price !== null){
-	      	alert('新增成功');
-	        row.editing = false
-	        row.saving = true;
-        }
-	      else {
-	       alert('商品名稱及價錢不能是空的');
-        }*/
-	      row.editing = true;
-	      row.saving = false;
+	      if (this.newValue.name !== '' && this.newValue.price !== '') {
+		      alert('儲存成功');
+	      } else {
+		      console.log('error submit!!');
+		      return false;
+	      }
+      	row.editing = false;
+        row.saving = true;
         console.log(JSON.stringify(this.tableData))
       },
       clearInput() {
@@ -160,13 +158,10 @@
         this.newValue.price = ''
       },
       handleAdd() {
-	      const checkAdd = (this.newValue.name !== '') && (this.newValue.price !== '')
-	      if (checkAdd === true){
+      	if (this.newValue.name !== '' && this.newValue.price !== '') {
 	        alert('新增成功');
-        }
-      	else {
+        } else {
 	        console.log('error submit!!');
-	        alert('商品名稱及價錢不能是空的');
 	        return false;
         }
 	      this.tableData.push({name: this.newValue.name, price: this.newValue.price, editing: false, saving: true}); //新增
